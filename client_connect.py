@@ -56,6 +56,14 @@ class Client:
             "player_id": self.player_id
         }))
 
+    def sendFindTour(self):
+        self.ws.send(json.dumps({
+            "type": "matchmaking",
+            "action": "find_tournament",
+            "ia_game": "none",
+            "player_id": self.player_id
+        }))
+
     def close_connection(self):
         if self.ws:
             self.ws.close()
@@ -183,7 +191,8 @@ def tenRoom():
     leaveClient(clients, threats, max_player)
     joinClient(threats, max_player)
 
-def twentyRoom():
+
+def fiftyRoom():
     clients = []
     threats = []
     max_player = 100
@@ -193,5 +202,19 @@ def twentyRoom():
         time.sleep(0.5)
         clients[i].sendFindGame()
     time.sleep(5)
+    leaveClient(clients, threats, max_player)
+    joinClient(threats, max_player)
+
+
+def joinTour():
+    clients = []
+    threats = []
+    max_player = 4
+
+    buildClient(clients, threats, max_player, "playerH_")
+    for i in range(max_player):
+        time.sleep(0.25)
+        clients[i].sendFindTour()
+    time.sleep(4)
     leaveClient(clients, threats, max_player)
     joinClient(threats, max_player)
