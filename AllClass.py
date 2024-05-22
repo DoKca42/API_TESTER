@@ -106,6 +106,7 @@ def postMatch_ToNGN(match):
 
         headers = {"Authorization": str(signature),
                    "TransactionId": str(Uniqid.generate()),
+                   "Expires": (datetime.utcnow() + timedelta(minutes=10)).isoformat()}
         host = NGN_URL + ":" + NGN_HOST
         url = host + '/api/create_game/'
         x = requests.post(url, json=data, headers=headers)
