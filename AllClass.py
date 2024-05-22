@@ -104,7 +104,8 @@ def postMatch_ToNGN(match):
     try:
         data, signature = Signature.create_signed_token(match)
 
-        headers = {"Authorization": str(signature)}
+        headers = {"Authorization": str(signature),
+                   "TransactionId": str(Uniqid.generate()),
         host = NGN_URL + ":" + NGN_HOST
         url = host + '/api/create_game/'
         x = requests.post(url, json=data, headers=headers)
