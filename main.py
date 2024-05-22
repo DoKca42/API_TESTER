@@ -1,5 +1,5 @@
 # ======== MATCH TO BLOCKCHAIN ==========
-from AllClass import postMatch_ToBC, Uniqid, postMatch_ToRM
+from AllClass import postMatch_ToBC, Uniqid, postMatch_ToRM, postMatch_ToNGN
 from client_connect import alreadyInWaiting, reconnectionTest, oneRoom, twoRoom, fiveRoom, tenRoom, fiftyRoom, joinTour
 
 
@@ -36,13 +36,14 @@ def tour_ToRM(id_match, tournament, p_a, p_b):
     }
     return data_json_raw
 
-joinTour()
 
-tour_id, pA, pB, pC, pD = "275317150979901770", Uniqid.generate(), Uniqid.generate(), Uniqid.generate(), Uniqid.generate()
-
-postMatch_ToRM(tour_ToRM("297917151745654778", tour_id, pA, pB))
-postMatch_ToRM(tour_ToRM("795017151745654737", tour_id, pC, pD))
-postMatch_ToRM(tour_ToRM("357917151745654735", tour_id, pB, pD))
+#joinTour()
+#
+#tour_id, pA, pB, pC, pD = "275317150979901775", Uniqid.generate(), Uniqid.generate(), Uniqid.generate(), Uniqid.generate()
+#
+#postMatch_ToRM(tour_ToRM("297917151745654778", tour_id, pA, pB))
+#postMatch_ToRM(tour_ToRM("795017151745654737", tour_id, pC, pD))
+#postMatch_ToRM(tour_ToRM("357917151745654735", tour_id, pB, pD))
 
 
 # ======== MATCH RESULT TO ROOM MANAGER ==========
@@ -62,7 +63,7 @@ def match_ToRM(id_match, p_a, p_b):
 # id_already_exist = Uniqid.generate()
 # postMatch_ToRM(match_ToRM(id_already_exist, Uniqid.generate(), Uniqid.generate()))
 # postMatch_ToRM(match_ToRM(id_already_exist, Uniqid.generate(), Uniqid.generate()))
-# postMatch_ToRM(match_ToRM(Uniqid.generate(), Uniqid.generate(), Uniqid.generate()))
+#postMatch_ToRM(match_ToRM(Uniqid.generate(), Uniqid.generate(), Uniqid.generate()))
 # postMatch_ToRM(match_ToRM(Uniqid.generate(), Uniqid.generate(), Uniqid.generate()))
 
 # ======== MATCHMAKING TO ROOM MANAGER ==========
@@ -75,3 +76,15 @@ def match_ToRM(id_match, p_a, p_b):
 #tenRoom()
 #fiftyRoom()
 
+# ======== CREATE MATCH ==========
+def match_ToNGN(id_match, p_id):
+    data_json_raw = {
+        "match_id": id_match,
+        "tournament_id": 0,
+        "player1_id": p_id,
+        "player2_id": "bot",
+    }
+    return data_json_raw
+
+
+postMatch_ToNGN(match_ToNGN(Uniqid.generate(), 215017151745654737))

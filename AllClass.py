@@ -15,7 +15,8 @@ BLOCKCHAIN_URL = "http://k1r4p6"
 BLOCKCHAIN_HOST = "8020"
 ROOMMANAGER_URL = "http://localhost"
 ROOMMANAGER_HOST = "8000"
-
+NGN_URL = "http://localhost"
+NGN_HOST = "8056"
 
 class Uniqid:
 
@@ -92,6 +93,20 @@ def postMatch_ToRM(match):
         headers = {"Authorization": str(signature)}
         host = ROOMMANAGER_URL + ":" + ROOMMANAGER_HOST
         url = host + '/api/match_result/'
+        x = requests.post(url, json=data, headers=headers)
+        print("[SUCCESS] Post ", x)
+    except Exception as e:
+        print("[ERROR] Post ", e)
+
+
+def postMatch_ToNGN(match):
+    print("[INPUT] match ", match)
+    try:
+        data, signature = Signature.create_signed_token(match)
+
+        headers = {"Authorization": str(signature)}
+        host = NGN_URL + ":" + NGN_HOST
+        url = host + '/api/create_game/'
         x = requests.post(url, json=data, headers=headers)
         print("[SUCCESS] Post ", x)
     except Exception as e:
